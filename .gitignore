@@ -216,3 +216,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Data files (only commit the mapping, not the raw/tokenized data)
+data/tokenized/
+data/raw/
+data/*.csv
+data/*.parquet
+
+# Training artifacts
+results-*/
+wandb/
+*.pt
+*.bin
+.ipynb_checkpoints/
