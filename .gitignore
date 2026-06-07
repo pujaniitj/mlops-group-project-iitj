@@ -228,3 +228,6 @@ wandb/
 *.pt
 *.bin
 .ipynb_checkpoints/
+final_model/
+final_model_v1/
+venv/
