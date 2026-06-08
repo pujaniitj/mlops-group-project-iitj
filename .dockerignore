@@ -1,0 +1,13 @@
+.git/
+venv/
+final_model*/
+data/
+notebooks/
+results-*/
+wandb/
+*.pyc
+_pycache_/
+.gitignore
+.gitattributes
+*.md
+*.txt
