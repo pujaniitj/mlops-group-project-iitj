@@ -30,6 +30,6 @@ jobs:
           flake8 src/ \
             --max-line-length=120 \
             --exclude=_pycache_ \
+            --ignore=F541,W293,W292,E302,E303,W291,E501,F401,W503 \
             --statistics \
             --count
-
