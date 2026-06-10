@@ -1,0 +1,35 @@
+name: Inference - Run Sentiment Analysis
+
+on:
+  workflow_dispatch:
+    inputs:
+      input_text:
+        description: "Text to classify (e.g. This movie was fantastic!)"
+        required: true
+        default: "This movie was absolutely fantastic!"
+
+jobs:
+  inference:
+    name: Run Inference
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install transformers torch --index-url https://download.pytorch.org/whl/cpu huggingface_hub
+
+      - name: Run inference
+        env:
+          HF_MODEL_NAME: pujaniitj/MLOPS_GROUP_PROJECT
+          INPUT_TEXT: ${{ github.event.inputs.input_text }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python src/inference.py "${{ github.event.inputs.input_text }}"
