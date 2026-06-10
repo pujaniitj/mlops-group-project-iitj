@@ -1,13 +1,45 @@
+# Git
 .git/
-venv/
-final_model*/
-data/
-notebooks/
-results-*/
-wandb/
-*.pyc
-_pycache_/
 .gitignore
 .gitattributes
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.python-version
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Model artifacts
+final_model*/
+models/
+checkpoints/
+
+# Data
+data/
+datasets/
+
+# Experiment outputs
+results-*/
+wandb/
+logs/
+
+# Jupyter
+notebooks/
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
 *.md
-*.txt
+
+# Keep requirements files
+!requirements.txt
+!requirements-*.txt
