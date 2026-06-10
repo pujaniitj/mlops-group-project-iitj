@@ -1,28 +1,35 @@
-## Docker Container
+## GitHub Actions CI/CD
 
-The inference script is packaged as a Docker container and available on Docker Hub:
+Two automated workflows are configured in .github/workflows/:
 
-🐳 **[g25ait2144/mlops-group-project](https://hub.docker.com/r/g25ait2144/mlops-group-project)**
+### CI Workflow — Lint and Validate
 
-### Pull and run
+Triggers automatically on every push or pull request to the develop branch.
 
-bash
-docker pull g25ait2144/mlops-group-project:latest
+- Checks out the code
+- Sets up Python 3.10
+- Runs flake8 linter on src/ with max line length 120
+- Fails the build if any critical code errors are found
 
+*Status badge:*
 
-bash
-docker run --rm \
-  -e INPUT_TEXT="This movie was absolutely fantastic!" \
-  g25ait2144/mlops-group-project:latest
+![CI](https://github.com/pujaniitj/mlops-group-project-iitj/actions/workflows/ci.yml/badge.svg?branch=develop)
 
+### Inference Workflow — Run Sentiment Analysis
 
-### Sample output
+Triggered manually via GitHub Actions UI (workflow_dispatch).
 
+Accepts custom text input and runs the DistilBERT sentiment classifier:
 
-Model: pujaniitj/MLOPS_GROUP_PROJECT
-Input: Worst film I have ever watched
-Loading model from Hugging Face Hub...
-Running inference...
+1. Go to *Actions* tab
+2. Click *Inference - Run Sentiment Analysis*
+3. Click *Run workflow*
+4. Enter text to classify
+5. Click the green *Run workflow* button
+6. Wait ~1 minute for the result
+
+*Sample output:*
+
 
 ========================================
   Sentiment:  negative
@@ -30,18 +37,9 @@ Running inference...
 ========================================
 
 
-### Environment variables
+### Workflow files
 
-| Variable | Default | Description |
+| File | Trigger | Purpose |
 |---|---|---|
-| INPUT_TEXT | Sample positive review | Text to classify |
-| HF_MODEL_NAME | pujaniitj/MLOPS_GROUP_PROJECT | Hugging Face model to load |
-| HF_TOKEN | None | Optional — only for private HF repos |
-
-### Build locally
-
-bash
-git clone https://github.com/pujaniitj/mlops-group-project-iitj.git
-cd mlops-group-project-iitj
-docker build -t mlops-group-project:latest .
-docker run --rm -e INPUT_TEXT="Your text here" mlops-group-project:latest
+| .github/workflows/ci.yml | Push / PR to develop | Lint with flake8 |
+| .github/workflows/inference.yml | Manual (workflow_dispatch) | Run sentiment inference |
