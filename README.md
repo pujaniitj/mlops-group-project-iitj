@@ -67,12 +67,11 @@ flowchart TD
 
     I["Automated Inference\nSentiment: negative\nConfidence: 0.9963"]
 ```
-
 ---
-```mermaid
+
 ## Pull Request Workflow
 
-
+```mermaid
 gitGraph
    commit id: "Initial commit (main)"
    branch develop
@@ -102,6 +101,7 @@ gitGraph
 ```
 
 ---
+
 
 ## Repository Structure
 
