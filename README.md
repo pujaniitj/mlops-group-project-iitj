@@ -1,3 +1,26 @@
+End-to-End MLOps Pipeline — Sentiment Analysis on IMDB
+
+IIT Jodhpur | PGD AI Program | MLOps (CSL7040) | Group 8
+
+
+Team Members
+
+MemberFull NameRoll NoGitHub UsernameTasksMember 1 (Admin)Pujan ChakrabortyG25AIT2076pujaniitjTasks 1, 2, 3, 4, 8Member 2Mannu Singh[TO BE ADDED]manuiitjTask 5Member 3Rahul SharmaG25AIT2144g25ait2144Task 6Member 4Sai Chaitanya[TO BE ADDED]g25ait2143-specTask 7
+
+
+Live Project Links
+
+All links are publicly accessible.
+
+ResourceURLGitHub Repositoryhttps://github.com/pujaniitj/mlops-group-project-iitjHugging Face Modelhttps://huggingface.co/Pujaniitj/MLOPS_GROUP_PROJECTDocker Hub Imagehttps://hub.docker.com/r/g25ait2144/mlops-group-projectW&B Dashboardhttps://wandb.ai/pujaniitj-iit-jodpur/MLops_group_8Kaggle Notebook V1https://www.kaggle.com/code/pujaniitj/mlops-group-8-imdb-v1Kaggle Notebook V2https://www.kaggle.com/code/pujaniitj/mlops-group-8-imdb-v2
+
+Project Overview
+
+This project demonstrates a complete end-to-end MLOps pipeline for binary sentiment classification on IMDB movie reviews. The pipeline covers every stage from raw data ingestion and model fine-tuning, through experiment tracking, to containerized inference and automated CI/CD workflows via GitHub Actions.
+
+PropertyValueTaskBinary Sentiment Classification (Positive / Negative)Datasetstanfordnlp/imdb — 50,000 reviews from Hugging Face HubBase Modeldistilbert-base-uncased (67M parameters, 268 MB)Production Modelrun-v1 (learning rate = 3e-5)Training PlatformKaggle Notebooks (NVIDIA Tesla T4 x2 GPU)Experiment TrackingWeights and Biases — project: MLops_group_8
+
+
 ## GitHub Actions CI/CD
 
 Two automated workflows are configured in .github/workflows/:
