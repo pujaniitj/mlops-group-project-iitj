@@ -72,7 +72,7 @@ flowchart TD
 
 ## Pull Request Workflow
 
-```mermaid
+
 gitGraph
    commit id: "Initial commit (main)"
    branch develop
