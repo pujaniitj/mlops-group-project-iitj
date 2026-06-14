@@ -9,9 +9,9 @@
 | Member | Full Name | Roll No | GitHub Username | Tasks |
 |---|---|---|---|---|
 | Member 1 (Admin) | Pujan Chakraborty | G25AIT2076 | pujaniitj | Tasks 1, 2, 3, 4, 8 |
-| Member 2 | Mannu Singh | [TO BE ADDED] | manuiitj | Task 5 |
+| Member 2 | Manu Singh | G25AIT2061 | manuiitj | Task 5 |
 | Member 3 | Rahul Sharma | G25AIT2144 | g25ait2144 | Task 6 |
-| Member 4 | Sai Chaitanya | [TO BE ADDED] | g25ait2143-spec | Task 7 |
+| Member 4 | Sai Chaitanya | G25AIT2143 | g25ait2143-spec | Task 7 |
 
 ---
 
@@ -49,57 +49,42 @@ This project demonstrates a complete end-to-end MLOps pipeline for binary sentim
 
 ```mermaid
 flowchart TD
-    A["Raw IMDB Dataset\nstanfordnlp/imdb\n50,000 reviews"] --> B
-
-    B["Task 2: Data Preparation\nMember 1 - Pujan Chakraborty\nTokenize with DistilBERT tokenizer\nTruncate to 256 tokens\n90/10 train/val split (seed=42)\nSave id2label.json to repo"] --> C
-
-    C["Task 3: Model Selection\nMember 1 - Pujan Chakraborty\ndistilbert-base-uncased\n67M params, 268 MB\nnum_labels=2, id2label configured"] --> D
-
-    D["Task 4: Training on Kaggle\nMember 1 - Pujan Chakraborty\nKaggle GPU T4 x2\nHugging Face Trainer API\nrun-v1: lr=3e-5 (selected)\nrun-v2: lr=5e-5"] --> E
-
-    E["Task 8: W&B Tracking\nMember 1 - Pujan Chakraborty\nBoth runs logged\nAccuracy, F1, Loss per epoch\nPublic dashboard"] --> F
-
-    F["Task 5: Hugging Face Hub\nMember 2 - Mannu Singh\nmodel.push_to_hub()\ntokenizer.push_to_hub()\nPublic model card\nPujaniitj/MLOPS_GROUP_PROJECT"] --> G
-
-    G["Task 6: Docker Container\nMember 3 - Rahul Sharma\npython:3.10-slim base image\nLoads model from HF Hub at runtime\ng25ait2144/mlops-group-project:latest"] --> H
-
-    H["Task 7: GitHub Actions\nMember 4 - Sai Chaitanya\nci.yml: flake8 on every push to develop\ninference.yml: manual workflow_dispatch\nBoth workflows passing"] --> I
-
-    I["Automated Inference\nSentiment: negative\nConfidence: 0.9963"]
+    A["Raw IMDB Dataset<br/>stanfordnlp/imdb<br/>50,000 reviews"] --> B
+    B["Task 2: Data Preparation<br/>Member 1 - Pujan Chakraborty<br/>Tokenize with DistilBERT tokenizer<br/>Truncate to 256 tokens<br/>90/10 train/val split (seed=42)<br/>Save id2label.json to repo"] --> C
+    C["Task 3: Model Selection<br/>Member 1 - Pujan Chakraborty<br/>distilbert-base-uncased<br/>67M params, 268 MB<br/>num_labels=2, id2label configured"] --> D
+    D["Task 4: Training on Kaggle<br/>Member 1 - Pujan Chakraborty<br/>Kaggle GPU T4 x2<br/>Hugging Face Trainer API<br/>run-v1: lr=3e-5 (selected)<br/>run-v2: lr=5e-5"] --> E
+    E["Task 8: W&B Tracking<br/>Member 1 - Pujan Chakraborty<br/>Both runs logged<br/>Accuracy, F1, Loss per epoch<br/>Public dashboard"] --> F
+    F["Task 5: Hugging Face Hub<br/>Member 2 - Manu Singh<br/>model.push_to_hub()<br/>tokenizer.push_to_hub()<br/>Public model card<br/>Pujaniitj/MLOPS_GROUP_PROJECT"] --> G
+    G["Task 6: Docker Container<br/>Member 3 - Rahul Sharma<br/>python:3.10-slim base image<br/>Loads model from HF Hub at runtime<br/>g25ait2144/mlops-group-project:latest"] --> H
+    H["Task 7: GitHub Actions<br/>Member 4 - Sai Chaitanya<br/>ci.yml: flake8 on every push to develop<br/>inference.yml: manual workflow_dispatch<br/>Both workflows passing"] --> I
+    I["Automated Inference<br/>Sentiment: negative<br/>Confidence: 0.9963"]
 ```
 
 ---
 
 ## Pull Request Workflow
 
+The following diagram shows the branching strategy and pull request flow used throughout the project. All work was done on short-lived feature branches that merged into `develop`, with a final merge from `develop` to `main` for release.
+
 ```mermaid
-gitGraph
-   commit id: "Initial commit (main)"
-   branch develop
-   checkout develop
-   commit id: "Add data prep, train skeleton, requirements"
-   branch feat/data-mapping
-   checkout feat/data-mapping
-   commit id: "Add IMDB label mapping (id2label.json)"
-   commit id: "Add Dataset section to README"
-   checkout develop
-   merge feat/data-mapping id: "PR merged"
-   commit id: "Add Task 5 - HF push script, inference script"
-   branch feat/docker-docs
-   checkout feat/docker-docs
-   commit id: "Add Docker Hub section to README"
-   checkout develop
-   merge feat/docker-docs id: "PR merged"
-   branch feat/actions-docs
-   checkout feat/actions-docs
-   commit id: "Add GitHub Actions CI/CD section to README"
-   checkout develop
-   merge feat/actions-docs id: "PR merged"
-   commit id: "Add Dockerfile and dockerignore"
-   commit id: "Add CI lint and inference workflows"
-   checkout main
-   merge develop id: "Final merge - All tasks complete"
+flowchart LR
+    PR1["PR 1<br/>setup/initial-code<br/>Author: Pujan<br/>Reviewer: Mannu"] --> DEV["develop branch"]
+    PR2["PR 2<br/>feat/data-mapping<br/>Author: Mannu<br/>Reviewer: Pujan"] --> DEV
+    PR3["PR 3<br/>feat/docker-docs<br/>Author: Rahul<br/>Reviewer: Pujan"] --> DEV
+    PR4["PR 4<br/>feat/actions-docs<br/>Author: Sai Chaitanya<br/>Reviewer: Pujan"] --> DEV
+    DEV --> PR5["PR 5<br/>develop to main<br/>Final release merge"]
+    PR5 --> MAIN["main branch<br/>Protected<br/>1 review required"]
 ```
+
+### Pull Request History
+
+| PR | Branch | Author | Reviewer | Description |
+|---|---|---|---|---|
+| PR 1 | setup/initial-code to develop | Pujan Chakraborty | Manu Singh | Initial code scaffold — data prep, train skeleton |
+| PR 2 | feat/data-mapping to develop | Manu Singh | Pujan Chakraborty | IMDB label mapping, Dataset README section |
+| PR 3 | feat/docker-docs to develop | Rahul Sharma | Pujan Chakraborty | Docker Hub documentation in README |
+| PR 4 | feat/actions-docs to develop | Sai Chaitanya | Pujan Chakraborty | GitHub Actions documentation in README |
+| PR 5 | develop to main | Pujan Chakraborty | Admin bypass | Final merge — all tasks complete |
 
 ---
 
@@ -158,16 +143,6 @@ Feature branches  -->  develop  (via Pull Request with 1 review)
 ```
 
 All members commit to feature branches. Feature branches merge into develop via Pull Requests. Only develop to main merges are permitted after review. Direct pushes to main are blocked.
-
-### Pull Request History
-
-| PR | Branch | Author | Reviewer | Description |
-|---|---|---|---|---|
-| PR 1 | setup/initial-code to develop | Pujan Chakraborty | Mannu Singh | Initial code scaffold — data prep, train skeleton |
-| PR 2 | feat/data-mapping to develop | Mannu Singh | Pujan Chakraborty | IMDB label mapping, Dataset README section |
-| PR 3 | feat/docker-docs to develop | Rahul Sharma | Pujan Chakraborty | Docker Hub documentation in README |
-| PR 4 | feat/actions-docs to develop | Sai Chaitanya | Pujan Chakraborty | GitHub Actions documentation in README |
-| PR 5 | develop to main | Pujan Chakraborty | Admin bypass | Final merge — all tasks complete |
 
 ---
 
@@ -237,21 +212,20 @@ DistilBERT was selected based on four factors from its Hugging Face model card. 
 | Epochs | 3 | 3 |
 | Batch Size | 16 | 16 |
 | Max Token Length | 256 | 256 |
-| Test Accuracy | ~90% | ~91% |
-| Test F1 Score | ~90% | ~91% |
-| Test Loss | ~0.70 (lower) | ~0.85 |
-| Inference Speed | ~220 samples/s | ~170 samples/s |
-| Training Runtime | ~17 min | ~18 min |
+| Eval Accuracy | 0.9112 | 0.9068 |
+| Eval F1 Score | 0.9112 | 0.9068 |
+| Eval Loss | 0.7224 (lower) | 0.8662 |
+| Training Runtime | 17m 16s | 18m 50s |
 
 ### Why run-v1 Was Selected
 
-Although run-v2 achieved marginally higher F1 and accuracy (approximately 0.5% improvement), it showed clear overfitting — the evaluation loss climbed sharply across training epochs while run-v1 remained stable. run-v1 also delivers approximately 30% faster inference and significantly lower test loss (0.70 vs 0.85), indicating better model calibration. The F1 difference between the two runs is within statistical noise margins. Combined with more stable training behaviour and faster inference, run-v1 is the better production choice.
+run-v1 outperformed run-v2 on every key metric. It achieved higher evaluation accuracy and F1 score (0.9112 vs 0.9068), and significantly lower evaluation loss (0.7224 vs 0.8662), indicating better calibration and fewer confident wrong predictions. run-v1 also trained faster (17m 16s vs 18m 50s). The lower learning rate of 3e-5 produced a more stable training trajectory while reaching a better local minimum. Combined with the lower loss and faster training, run-v1 is the clear production choice.
 
 ---
 
 ## Task 5 — Push Model to Hugging Face Hub
 
-**Completed by: Member 2 — Mannu Singh**
+**Completed by: Member 2 — Manu Singh**
 
 | Property | Value |
 |---|---|
@@ -412,7 +386,7 @@ Running inference...
 | W&B Project | MLops_group_8 |
 | Dashboard URL | https://wandb.ai/pujaniitj-iit-jodpur/MLops_group_8 |
 | Visibility | Public |
-| Runs | run-v1 and run-v2 both visible with full metrics |
+| Runs | run-v1 (0.9112 accuracy) and run-v2 (0.9068 accuracy) — both visible with full metrics |
 
 Both training runs are visible in the W&B dashboard with overlaid loss curves, accuracy and F1 curves per epoch, a full runs comparison table, and all hyperparameters logged via wandb.config.
 
@@ -423,7 +397,7 @@ Both training runs are visible in the W&B dashboard with overlaid loss curves, a
 | Member | GitHub Contributions |
 |---|---|
 | Pujan Chakraborty | Repository admin, initial scaffold (PR 1), data_prep.py, train.py, requirements.txt, Kaggle training notebooks V1 and V2, id2label.json, inference.py, push_to_hub.py |
-| Mannu Singh | PR 1 reviewer and approver, model push to Hugging Face Hub, model card, PR 2 author (label mapping) |
+| Manu Singh | PR 1 reviewer and approver, model push to Hugging Face Hub, model card, PR 2 author (label mapping) |
 | Rahul Sharma | Dockerfile, .dockerignore, Docker Hub push and overview documentation, Docker README section (PR 3) |
 | Sai Chaitanya | ci.yml, inference.yml, GitHub Actions README section (PR 4) |
 
