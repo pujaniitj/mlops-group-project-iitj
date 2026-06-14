@@ -67,6 +67,7 @@ flowchart TD
 
     I["Automated Inference\nSentiment: negative\nConfidence: 0.9963"]
 ```
+
 ---
 
 ## Pull Request Workflow
@@ -101,7 +102,6 @@ gitGraph
 ```
 
 ---
-
 
 ## Repository Structure
 
@@ -352,49 +352,56 @@ Running inference...
 
 ## Task 7 — GitHub Actions CI/CD
 
-Two automated workflows are configured in .github/workflows/:
+**Completed by: Member 4 — Sai Chaitanya**
 
-### CI Workflow — Lint and Validate
+| File | Trigger | Purpose | Status |
+|---|---|---|---|
+| .github/workflows/ci.yml | Every push or PR to develop | Lint with flake8 | Passing |
+| .github/workflows/inference.yml | Manual (workflow_dispatch) | Run sentiment inference | Passing |
+
+### CI Workflow
 
 Triggers automatically on every push or pull request to the develop branch.
 
-- Checks out the code
-- Sets up Python 3.10
-- Runs flake8 linter on src/ with max line length 120
-- Fails the build if any critical code errors are found
+Steps executed:
+- Check out code
+- Set up Python 3.10
+- Install flake8
+- Run flake8 on src/ with max line length 120
+- Fail the build if any critical code errors are found
 
-*Status badge:*
+CI status badge:
 
 ![CI](https://github.com/pujaniitj/mlops-group-project-iitj/actions/workflows/ci.yml/badge.svg?branch=develop)
 
-### Inference Workflow — Run Sentiment Analysis
+### Inference Workflow
 
-Triggered manually via GitHub Actions UI (workflow_dispatch).
+Triggered manually via the GitHub Actions UI using workflow_dispatch. Accepts custom text input and runs the DistilBERT sentiment classifier.
 
-Accepts custom text input and runs the DistilBERT sentiment classifier:
+To trigger manually:
 
-1. Go to *Actions* tab
-2. Click *Inference - Run Sentiment Analysis*
-3. Click *Run workflow*
-4. Enter text to classify
-5. Click the green *Run workflow* button
-6. Wait ~1 minute for the result
+1. Go to the Actions tab in the GitHub repository
+2. Click Inference - Run Sentiment Analysis in the left sidebar
+3. Click Run workflow
+4. Enter the text to classify
+5. Click the green Run workflow button
+6. Wait approximately one minute for the result
 
-*Sample output:*
+Sample output from a confirmed run:
 
+```
+Model: pujaniitj/MLOPS_GROUP_PROJECT
+Input: Worst film I have ever watched
+Loading model from Hugging Face Hub...
+Running inference...
 
 ========================================
   Sentiment:  negative
   Confidence: 0.9963
 ========================================
+```
 
-
-### Workflow files
-
-| File | Trigger | Purpose |
-|---|---|---|
-| .github/workflows/ci.yml | Push / PR to develop | Lint with flake8 |
-| .github/workflows/inference.yml | Manual (workflow_dispatch) | Run sentiment inference |
+---
 
 ## Task 8 — W&B Experiment Dashboard
 
@@ -470,4 +477,3 @@ docker run --rm -e INPUT_TEXT="This movie was fantastic!" g25ait2144/mlops-group
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
-
